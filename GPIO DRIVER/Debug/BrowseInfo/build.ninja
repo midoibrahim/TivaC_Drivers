@@ -1,0 +1,51 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe" $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe" $flags
+
+rule MAKEBROWSE
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe" $flags
+
+rule PDBLINK
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe" $flags
+
+
+
+#Build steps
+build F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.xcl : COMPILER_XCL 
+  xclcommand = -source_file "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\GPIO_Driver.c" -xcl_file "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.xcl" -macro_file "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\GPIO_Driver.c" -o "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" -On --predef_macros "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.tmp"
+  rspfile_name = F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.xcl.rsp
+
+build F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\main.c" -xcl_file "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.xcl" -macro_file "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\main.c" -o "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" -On --predef_macros "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.tmp"
+  rspfile_name = F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.xcl.rsp
+
+build F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.pbi : INDEXER F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.xcl |  $
+F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\GPIO_Driver.c
+  flags = "-out=F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.pbi" -f "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.xcl"
+
+build F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.pbi : INDEXER F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.xcl |  $
+F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\main.c
+  flags = "-out=F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.pbi" -f "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.xcl"
+
+build F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO$ DRIVER.pbw : MAKEBROWSE F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO$ DRIVER.pbd
+  flags = "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO$ DRIVER.pbd" -output "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO$ DRIVER.pbw"
+
+build F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO$ DRIVER.pbd : PDBLINK F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.pbi |  $
+F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.pbi
+  flags = -M "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO$ DRIVER.pbd" "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\GPIO_Driver.pbi" "F$:\Mohamed\Desktop\GPIO$ DRIVER$ LIB\GPIO$ DRIVER\Debug\BrowseInfo\main.pbi"
+
